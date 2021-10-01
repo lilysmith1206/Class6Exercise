@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChange } from '@angular/core';
 
 @Component({
   selector: 'app-search-results',
@@ -6,7 +6,15 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./search-results.component.css']
 })
 export class SearchResultsComponent implements OnInit {
+  @Input() query: string;
 
+  queries: string[] = [];
+
+  ngOnChanges($event) {
+    if ($event.query.currentValue.length > 0) {
+      this.queries.push($event.query.currentValue);
+    }
+  }
   constructor() { }
 
   ngOnInit(): void {
